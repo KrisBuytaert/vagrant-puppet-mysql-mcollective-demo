@@ -4,9 +4,6 @@ class repo {
 
 
     yumrepo {
-
-
-	
         
         "epel":
             descr 	=> "Epel-5",
@@ -37,6 +34,9 @@ class demo-mysql-databases {
 
 
 }
+
+
+
 node mysql {
 
     $hostname = 'MDC-A'
@@ -49,7 +49,7 @@ node mysql {
     include mysql::server
     include demo-mysql-databases 
 
-    Class["repo"] ->  Class ["mysql::server"] -> Class["ntc-mysql-databases"]
+    Class["repo"] ->  Class ["mysql::server"] -> Class["demo-mysql-databases"]
     
 }
 

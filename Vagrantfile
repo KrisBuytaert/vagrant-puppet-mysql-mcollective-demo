@@ -4,8 +4,11 @@ Vagrant::Config.run do |config|
   # please see the online documentation at vagrantup.com.
 
   config.vm.define :mc_master do |mc_master_config|
+       mc_master_config.ssh.max_tries = 100
        mc_master_config.vm.box = "MyCentOS2"
-       mc_master_config.vm.network("192.168.99.2")
+       mc_master_config.vm.network("192.168.99.2")	
+       mc_master_config.vm.host_name = "mc_master"
+
        mc_master_config.vm.provision :puppet do |mc_master_puppet|
        mc_master_puppet.pp_path = "/tmp/vagrant-puppet"
        mc_master_puppet.manifests_path = "manifests"
@@ -17,11 +20,37 @@ Vagrant::Config.run do |config|
   end
   config.vm.define :percona do |percona_config|
        percona_config.vm.box = "MyCentOS2"
+       percona_config.ssh.max_tries = 100
        percona_config.vm.network("192.168.99.3")
+       percona_config.vm.host_name = "percona"
+
+
+       percona_config.vm.provision :puppet do |percona_puppet|
+       percona_puppet.pp_path = "/tmp/vagrant-puppet"
+       percona_puppet.manifests_path = "manifests"
+       percona_puppet.module_path = "modules"
+       percona_puppet.manifest_file = "site.pp"
+
+   end
+
+
   end
   config.vm.define :mariadb do |mariadb_config|
        mariadb_config.vm.box = "MyCentOS2"
+       mariadb_config.ssh.max_tries = 100
        mariadb_config.vm.network("192.168.99.4")
+       mariadb_config.vm.host_name = "mariadb"
+
+
+       mariadb_config.vm.provision :puppet do |mariadb_puppet|
+       mariadb_puppet.pp_path = "/tmp/vagrant-puppet"
+       mariadb_puppet.manifests_path = "manifests"
+       mariadb_puppet.module_path = "modules"
+       mariadb_puppet.manifest_file = "site.pp"
+
+   end
+
+
   end
   # Every Vagrant virtual environment requires a box to build off of.
   #config.vm.box = "MyCentOS2"
