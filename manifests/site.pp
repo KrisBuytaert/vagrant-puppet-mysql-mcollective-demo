@@ -16,6 +16,14 @@ class repo {
             enabled 	=> 1,
             gpgcheck 	=> 0;
 
+	"jpackage":
+	     baseurl    => "http://sunsite.rediris.es/mirror/jpackage/5.0/redhat-el-5.0/free/",
+	     descr 	=> "JPackage",
+#	     mirrorlist => "http://www.jpackage.org/mirrorlist.php?dist=redhat-el-5.0&type=free&release=5.0",
+	    gpgcheck 	=> 0,
+            enabled 	=> 1,
+
+
         }
 
 }
