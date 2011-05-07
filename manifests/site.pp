@@ -55,14 +55,27 @@ node mysql {
 
 
 node mc_master {
+	
+	
+
+
+
+ 	include activemq
+        include mcollective::client
+	include mcollective 
+
+
+
 }
 
 
 node mariadb {
+	include mcollective
 }
 
 
 node percona {
+	include mcollective
 
 }
 
