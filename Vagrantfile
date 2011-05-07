@@ -3,14 +3,14 @@ Vagrant::Config.run do |config|
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
 
-  config.vm.define :mc-master do |mc-master_config|
-       mc-master_config.vm.box = "MyCentOS2"
-       mc-master_config.vm.network("192.168.99.2")
-       mc-master_config.vm.provision :puppet do |mc-master_puppet|
-       mc-master_puppet.pp_path = "/tmp/vagrant-puppet"
-       mc-master_puppet.manifests_path = "manifests"
-       mc-master_puppet.module_path = "modules"
-       mc-master_puppet.manifest_file = "site.pp"
+  config.vm.define :mc_master do |mc_master_config|
+       mc_master_config.vm.box = "MyCentOS2"
+       mc_master_config.vm.network("192.168.99.2")
+       mc_master_config.vm.provision :puppet do |mc_master_puppet|
+       mc_master_puppet.pp_path = "/tmp/vagrant-puppet"
+       mc_master_puppet.manifests_path = "manifests"
+       mc_master_puppet.module_path = "modules"
+       mc_master_puppet.manifest_file = "site.pp"
 
    end
 
