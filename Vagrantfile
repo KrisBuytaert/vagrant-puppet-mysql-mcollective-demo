@@ -3,8 +3,28 @@ Vagrant::Config.run do |config|
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
 
+  config.vm.define :mc-master do |mc-master_config|
+       mc-master_config.vm.box = "MyCentOS2"
+       mc-master_config.vm.network("192.168.99.2")
+       mc-master_config.vm.provision :puppet do |mc-master_puppet|
+       mc-master_puppet.pp_path = "/tmp/vagrant-puppet"
+       mc-master_puppet.manifests_path = "manifests"
+       mc-master_puppet.module_path = "modules"
+       mc-master_puppet.manifest_file = "site.pp"
+
+   end
+
+  end
+  config.vm.define :percona do |percona_config|
+       percona_config.vm.box = "MyCentOS2"
+       percona_config.vm.network("192.168.99.3")
+  end
+  config.vm.define :mariadb do |mariadb_config|
+       mariadb_config.vm.box = "MyCentOS2"
+       mariadb_config.vm.network("192.168.99.4")
+  end
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "MyCentOS2"
+  #config.vm.box = "MyCentOS2"
 #   config.vm.box = "lucid32"
 #  config.vm.box = "debian_squeeze_32"
   # The url from where the 'config.vm.box' box will be fetched if it
@@ -19,11 +39,11 @@ Vagrant::Config.run do |config|
   #config.vm.network "33.33.33.10"
 
 
-  config.vm.host_name = "mysql"
+  #config.vm.host_name = "mysql"
   # Forward a port from the guest to the host, which allows for outside
   # computers to access the VM, whereas host only networking does not.
   # config.vm.forward_port "http", 80, 8080
-  config.vm.forward_port "http", 80, 8080
+  #config.vm.forward_port "http", 80, 8080
 
   # Share an additional folder to the guest VM. The first argument is
   # an identifier, the second is the path on the guest to mount the
@@ -44,14 +64,7 @@ Vagrant::Config.run do |config|
 
 
 
- config.vm.provision :puppet do |puppet|
-     puppet.pp_path = "/tmp/vagrant-puppet"
-     puppet.manifests_path = "manifests"
-     puppet.module_path = "modules"
-     puppet.manifest_file = "site.pp"
-
-   end
-
+ 
   # Enable provisioning with chef server, specifying the chef server URL,
   # and the path to the validation key (relative to this Vagrantfile).
   #
