@@ -10,8 +10,13 @@ class repo {
             baseurl 	=> "http://mirror.eurid.eu/epel/5/i386/",
             enabled 	=> 1,
             gpgcheck 	=> 0;
-        }
+	"puppetlabs":
+            descr 	=> "Puppetlabs",
+            baseurl 	=> "http://yum.puppetlabs.com/",
+            enabled 	=> 1,
+            gpgcheck 	=> 0;
 
+        }
 
 }
 
@@ -59,7 +64,7 @@ node mc_master {
 	
 
 
-
+    	include repo
  	include activemq
         include mcollective::client
 	include mcollective 
@@ -70,11 +75,13 @@ node mc_master {
 
 
 node mariadb {
+    	include repo
 	include mcollective
 }
 
 
 node percona {
+    	include repo
 	include mcollective
 
 }
