@@ -7,18 +7,6 @@ class repo {
 
 
 	
-	"percona":
-	    descr 	=> "Percona", 
-	    enabled 	=>1, 
-	    baseurl 	=> "http://repo.percona.com/centos/$releasever/os/$basearch/",
-	    gpgcheck 	=> 0;
-
-
-	"ourdelta":
-	    descr 	=> "Ourdelta",
-	    enabled 	=> 1,
-	    gpgcheck 	=> 0,
-	    baseurl 	=> "http://master.ourdelta.org/yum/CentOS-MySQL50/5Server/"; 
         
         "epel":
             descr 	=> "Epel-5",
@@ -63,8 +51,18 @@ node mysql {
 
     Class["repo"] ->  Class ["mysql::server"] -> Class["ntc-mysql-databases"]
     
+}
 
 
+node mc_master {
+}
 
+
+node mariadb {
+}
+
+
+node percona {
 
 }
+

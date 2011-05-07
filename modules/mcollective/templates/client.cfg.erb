@@ -1,0 +1,28 @@
+topicprefix = /topic/
+<%# strip mcollective direcotry suffix -%>
+libdir = <%= scope.lookupvar("mcollective::plugins::p_base").sub(/\/mcollective$/,"") %>
+logfile = /dev/null
+loglevel = info
+
+# Plugins 
+<% unless scope.lookupvar("mcollective::psk").empty? -%>
+securityprovider = psk
+plugin.psk = <%= scope.lookupvar("mcollective::psk") %>
+
+<% end -%>
+<% unless scope.lookupvar("mcollective::stomp_host").empty? -%>
+connector = stomp
+plugin.stomp.host = <%= scope.lookupvar("mcollective::stomp_host") %>
+plugin.stomp.port = <%= scope.lookupvar("mcollective::stomp_port") %>
+plugin.stomp.user = <%= scope.lookupvar("mcollective::stomp_user") %>
+plugin.stomp.password = <%= scope.lookupvar("mcollective::stomp_password") %>
+<% end -%>
+
+# Facts
+<% unless scope.lookupvar("mcollective::factsource").empty? -%>
+factsource = <%= scope.lookupvar("mcollective::factsource") -%>
+<% else -%>
+factsource = yaml
+plugin.yaml = /etc/mcollective/facts.yaml
+<% end -%>
+
