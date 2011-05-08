@@ -60,13 +60,15 @@ class defaults {
 		}
 
     	include repo
-	}
+	
 
     file { "/home/vagrant/.my.cnf":
+	
+      target => "/root/.my.cnf",
+      ensure => link, 
       owner => root,
       group => root,
-      mode => 600,
-      require => Exec["Initialize MySQL server root password"]
+      mode => 600;
     }
 
 }
@@ -130,7 +132,6 @@ node percona {
     $mysql_root_password = 'SARDINES'
     $mysql_serverid = 2
 	$replicate_ignore_db= "mysql"
-    	$mysql_root_password = 'SARDINES'
     	include defaults
 	include mcollective
 	include percona::repository
