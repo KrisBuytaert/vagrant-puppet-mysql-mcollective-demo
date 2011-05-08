@@ -74,14 +74,19 @@ node mysql {
 
 
 node mc_master {
+
+	package { 
+		"java-1.4.2-gcj-compat":
+		ensure => absent;
+	}
 	
 	
 
 
     	include repo
  	include activemq
-        include mcollective::client
 	include mcollective 
+        include mcollective::client
 
 
 
