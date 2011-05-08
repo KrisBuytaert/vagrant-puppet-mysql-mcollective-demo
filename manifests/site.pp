@@ -54,6 +54,12 @@ class demo-mysql-databases {
 
 }
 
+class defaults {
+
+	service { "iptables":
+		ensure => stopped;
+		}
+}
 
 
 node mysql {
@@ -64,6 +70,7 @@ node mysql {
     $replicate_ignore_db = 'mysql,puppet_dashboard,puppet_dashboard_test' 
 
 
+    include defaults
     include repo
     include mysql::server
     include demo-mysql-databases 
@@ -83,6 +90,7 @@ node mc_master {
 	
 
 
+    	include defaults
     	include repo
  	include activemq
 	include mcollective 
@@ -94,6 +102,7 @@ node mc_master {
 
 
 node mariadb {
+    	include defaults
     	include repo
 	include mcollective
 	include maria::repository
@@ -102,9 +111,11 @@ node mariadb {
 
 
 node percona {
+    	include defaults
     	include repo
 	include mcollective
 	include percona::repository
 	include percona::packages 
+    	include demo-mysql-databases 
 }
 
