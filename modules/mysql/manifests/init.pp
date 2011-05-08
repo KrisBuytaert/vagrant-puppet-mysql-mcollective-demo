@@ -13,11 +13,14 @@ class mysql::server  {
 class mysql::packages {
 
         package {
-                "MySQL-client-community":
+                "MySQL-client-community.$hardwaremodel":
+                        alias => "MySQL-client",
                         ensure => "installed";
-                "MySQL-server-community":
+                "MySQL-server-community.$hardwaremodel":
+                        alias => "MySQL-server",
                         ensure => "installed";
-                "MySQL-shared-compat":
+                "MySQL-shared-compat.$hardwaremodel":
+                        alias => "MySQL-shared-compat",
                         ensure => "installed";
         }
 }
@@ -40,7 +43,7 @@ file {
                 ensure => "directory",
                 owner => "mysql",
                 group => 'mysql',
-		require => Package['MySQL-client-community'];
+		require => Package['MySQL-client'];
 }
 
 
@@ -48,7 +51,7 @@ service {
                 "mysql":
                         enable  => true,
 			ensure => running,
-                        require => [Package['MySQL-server-community'],File['/var/lib/mysql/.tmp']];
+                        require => [Package['MySQL-server'],File['/var/lib/mysql/.tmp']];
         }
 
 }
@@ -66,10 +69,11 @@ class mysql::setrootpw {
 
 
    exec { "Initialize MySQL server root password":
+                path    => "/usr/kerberos/sbin:/usr/kerberos/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin",
                 unless  => "test -f /root/.my.cnf",
                 command => "mysqladmin -u${mysql_user} password '${mysql_root_password}'",
-                notify  => Exec["Generate my.cnf"],
-                require =>  Service['mysql'] 
+                notify  => Exec["Generate my.cnf"]
+                #require =>  Service['mysql'] 
         }
 
 
