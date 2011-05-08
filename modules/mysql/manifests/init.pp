@@ -67,7 +67,6 @@ class mysql::setrootpw {
    require => Exec["Initialize MySQL server root password"]
     }
 
-
    exec { "Initialize MySQL server root password":
                 path    => "/usr/kerberos/sbin:/usr/kerberos/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin",
                 unless  => "test -f /root/.my.cnf",

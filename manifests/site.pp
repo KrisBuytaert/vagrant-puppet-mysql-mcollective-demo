@@ -57,7 +57,15 @@ class defaults {
 
 	service { "iptables":
 		ensure => stopped;
-		}
+	}
+
+    file { "/home/vagrant/.my.cnf":
+      owner => root,
+      group => root,
+      mode => 600,
+      require => Exec["Initialize MySQL server root password"]
+    }
+
 }
 
 
