@@ -16,12 +16,18 @@ class repo {
             enabled 	=> 1,
             gpgcheck 	=> 0;
 
-	"jpackage":
-	     baseurl    => "http://sunsite.rediris.es/mirror/jpackage/5.0/redhat-el-5.0/free/",
-	     descr 	=> "JPackage",
-#	     mirrorlist => "http://www.jpackage.org/mirrorlist.php?dist=redhat-el-5.0&type=free&release=5.0",
+	"jpackage-generic":
+ 		baseurl => "http://mirrors.dotsrc.org/jpackage/5.0/generic/free/",
+	     descr 	=> "JPackage-generic",
 	    gpgcheck 	=> 0,
-            enabled 	=> 1,
+            enabled 	=> 1;
+
+	"jpackage":
+ 		baseurl => "http://mirrors.dotsrc.org/jpackage/5.0/redhat-el-5.0/free/",
+		descr   => "Jpackage-el5",	
+	   	gpgcheck => 0,	
+            	enabled 	=> 1;
+	  
 
 
         }
