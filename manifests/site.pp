@@ -109,6 +109,7 @@ node mariadb {
 	include mcollective
 	include maria::repository
 	include mysql::config 
+	# We really need to set a rootpw ! 
 	include maria::packages
 }
 
@@ -122,6 +123,7 @@ node percona {
 	include percona::repository
 	include percona::packages 
 	include mysql::config 
+	# We really need to set a rootpw ! 
     	include demo-mysql-databases 
 }
 
