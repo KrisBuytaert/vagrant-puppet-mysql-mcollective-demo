@@ -4,7 +4,7 @@ class mcollective::plugins {
     debian,ubuntu: { $p_base = "/usr/share/mcollective/plugins/mcollective" }
     redhat,centos: { $p_base = "/usr/libexec/mcollective/mcollective" }
   }
-  $s_base = "puppet:///mcollective/plugins"
+  $s_base = "puppet:///modules/mcollective/plugins"
 
   File {
     owner => root, group => root, mode  => 0444,

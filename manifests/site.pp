@@ -102,20 +102,26 @@ node mc_master {
 
 
 node mariadb {
+	$mysql_serverid = 1
+	$replicate_ignore_db= "mysql"
     	include defaults
     	include repo
 	include mcollective
 	include maria::repository
+	include mysql::config 
 	include maria::packages
 }
 
 
 node percona {
+	$mysql_serverid = 2
+	$replicate_ignore_db= "mysql"
     	include defaults
     	include repo
 	include mcollective
 	include percona::repository
 	include percona::packages 
+	include mysql::config 
     	include demo-mysql-databases 
 }
 

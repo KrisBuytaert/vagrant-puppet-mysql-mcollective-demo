@@ -21,8 +21,10 @@ class percona::packages {
 
 	package {
 		"Percona-Server-server-51":
+    			alias  => "MySQL-server-community",
 			ensure => "installed";
 		"Percona-Server-client-51":
+    			alias  => "MySQL-client-community",
 			ensure => "installed";
 		
 	}
