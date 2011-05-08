@@ -7,7 +7,8 @@ class activemq {
                         	ensure => "installed";
 	
                 "activemq":
-                        ensure => "installed";
+                        ensure => "installed",
+                        require => Yumrepo["jpackage"];
         }
 
    file {

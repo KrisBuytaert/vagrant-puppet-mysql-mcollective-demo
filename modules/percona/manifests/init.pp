@@ -2,7 +2,7 @@ class percona::repository {
 
 
  $releasever = "5"
- $basearch = "i386"
+ $basearch = $hardwaremodel
     yumrepo {
 
 
@@ -20,13 +20,12 @@ class percona::repository {
 class percona::packages {
 
 	package {
-		"Percona-Server-server-51":
-    			alias  => "MySQL-server-community",
+		"Percona-Server-server-51.$hardwaremodel":
+            alias => "MySQL-server",
 			ensure => "installed";
-		"Percona-Server-client-51":
-    			alias  => "MySQL-client-community",
-			ensure => "installed";
-		
+		"Percona-Server-client-51.$hardwaremodel":
+            alias => "MySQL-client",
+			ensure => "installed";		
 	}
 
 }
