@@ -96,12 +96,15 @@ node mc_master {
 node mariadb {
     	include repo
 	include mcollective
+	include maria::repository
+	include maria::packages
 }
 
 
 node percona {
     	include repo
 	include mcollective
-
+	include percona::repository
+	include percona::packages 
 }
 

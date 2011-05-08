@@ -8,7 +8,7 @@ Vagrant::Config.run do |config|
        mc_master_config.vm.box = "MyCentOS2"
        mc_master_config.vm.network("192.168.99.2")	
        mc_master_config.vm.host_name = "mc_master"
-
+       mc_master_config.vm.forward_port "stomp" ,6163, 6163
        mc_master_config.vm.provision :puppet do |mc_master_puppet|
        mc_master_puppet.pp_path = "/tmp/vagrant-puppet"
        mc_master_puppet.manifests_path = "manifests"
@@ -24,6 +24,7 @@ Vagrant::Config.run do |config|
        percona_config.vm.network("192.168.99.3")
        percona_config.vm.host_name = "percona"
 
+       percona_config.vm.forward_port "mysql" ,3306, 3306
 
        percona_config.vm.provision :puppet do |percona_puppet|
        percona_puppet.pp_path = "/tmp/vagrant-puppet"
@@ -41,6 +42,7 @@ Vagrant::Config.run do |config|
        mariadb_config.vm.network("192.168.99.4")
        mariadb_config.vm.host_name = "mariadb"
 
+       mariadb_config.vm.forward_port "mysql" ,3306, 3307
 
        mariadb_config.vm.provision :puppet do |mariadb_puppet|
        mariadb_puppet.pp_path = "/tmp/vagrant-puppet"
