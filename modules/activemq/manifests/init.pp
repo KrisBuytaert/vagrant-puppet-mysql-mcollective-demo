@@ -2,8 +2,10 @@ class activemq {
 
 
     package {
-                "java":
-                        ensure => "installed";
+	   	"java-1.6.0-openjdk":
+                		alias  => "java",
+                        	ensure => "installed";
+	
                 "activemq":
                         ensure => "installed";
         }

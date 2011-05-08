@@ -59,6 +59,9 @@ class defaults {
 	service { "iptables":
 		ensure => stopped;
 		}
+
+    	include repo
+
 }
 
 
@@ -71,27 +74,21 @@ node mysql {
 
 
     include defaults
-    include repo
     include mysql::server
     include demo-mysql-databases 
 
-    Class["repo"] ->  Class ["mysql::server"] -> Class["demo-mysql-databases"]
+    Class ["mysql::server"] -> Class["demo-mysql-databases"]
     
 }
 
 
 node mc_master {
 
-	package { 
-		"java-1.4.2-gcj-compat":
-		ensure => absent;
-	}
 	
 	
 
 
     	include defaults
-    	include repo
  	include activemq
 	include mcollective 
         include mcollective::client
@@ -104,25 +101,29 @@ node mc_master {
 node mariadb {
 	$mysql_serverid = 1
 	$replicate_ignore_db= "mysql"
-    	include defaults
-    	include repo
+    	$mysql_root_password = 'SARDINES'
 	include mcollective
+    	include defaults
+
 	include maria::repository
 	include mysql::config 
+	include mysql::setrootpw
 	# We really need to set a rootpw ! 
 	include maria::packages
+    	include demo-mysql-databases 
 }
 
 
 node percona {
 	$mysql_serverid = 2
 	$replicate_ignore_db= "mysql"
+    	$mysql_root_password = 'SARDINES'
     	include defaults
-    	include repo
 	include mcollective
 	include percona::repository
 	include percona::packages 
 	include mysql::config 
+	include mysql::setrootpw
 	# We really need to set a rootpw ! 
     	include demo-mysql-databases 
 }

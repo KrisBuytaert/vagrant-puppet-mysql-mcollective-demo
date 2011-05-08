@@ -56,6 +56,10 @@ service {
 
 class mysql::setrootpw {
 
+
+
+
+
   $mysql_user = "root"
   file { "/root/.my.cnf":
       owner => root,
@@ -66,8 +70,8 @@ class mysql::setrootpw {
 
 
    exec { "Initialize MySQL server root password":
-                unless  => "test -f /root/.my.cnf",
-                command => "mysqladmin -u${mysql_user} password '${mysql_root_password}'",
+                unless  => "/usr/bin/test -f /root/.my.cnf",
+                command => "/usr/bin/mysqladmin -u${mysql_user} password '${mysql_root_password}'",
                 notify  => Exec["Generate my.cnf"],
                 require =>  Service['mysql'] 
         }
