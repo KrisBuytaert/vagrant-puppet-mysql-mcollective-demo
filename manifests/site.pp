@@ -1,13 +1,12 @@
 class repo {
     $releasever = "5"
-    $basearch = "i386"
 
 
     yumrepo {
         
         "epel":
             descr 	=> "Epel-5",
-            baseurl 	=> "http://mirror.eurid.eu/epel/5/i386/",
+            baseurl 	=> "http://mirror.eurid.eu/epel/5/$hardwaremodel/",
             enabled 	=> 1,
             gpgcheck 	=> 0;
 	"puppetlabs":
@@ -58,13 +57,22 @@ class defaults {
 
 	service { "iptables":
 		ensure => stopped;
-		}
+	}
+
+    file { "/home/vagrant/.my.cnf":
+      owner => root,
+      group => root,
+      mode => 600,
+      require => Exec["Initialize MySQL server root password"]
+    }
+
 }
 
 
 node mysql {
 
     $hostname = 'MDC-A'
+    $mysql_user = 'root'
     $mysql_root_password = 'SARDINES'
     $mysql_serverid = 1
     $replicate_ignore_db = 'mysql,puppet_dashboard,puppet_dashboard_test' 
@@ -73,6 +81,7 @@ node mysql {
     include defaults
     include repo
     include mysql::server
+    include mysql::setrootpw
     include demo-mysql-databases 
 
     Class["repo"] ->  Class ["mysql::server"] -> Class["demo-mysql-databases"]
@@ -90,11 +99,11 @@ node mc_master {
 	
 
 
-    	include defaults
-    	include repo
+   	include defaults
+   	include repo
  	include activemq
 	include mcollective 
-        include mcollective::client
+    include mcollective::client
 
 
 
@@ -102,28 +111,33 @@ node mc_master {
 
 
 node mariadb {
+    $mysql_user = 'root'
+    $mysql_root_password = 'SARDINES'
 	$mysql_serverid = 1
 	$replicate_ignore_db= "mysql"
-    	include defaults
-    	include repo
+    include defaults
+    include repo
 	include mcollective
 	include maria::repository
 	include mysql::config 
 	# We really need to set a rootpw ! 
 	include maria::packages
+    include mysql::setrootpw
 }
 
 
 node percona {
-	$mysql_serverid = 2
+    $mysql_user = 'root'
+    $mysql_root_password = 'SARDINES'
+    $mysql_serverid = 2
 	$replicate_ignore_db= "mysql"
-    	include defaults
-    	include repo
+    include defaults
+    include repo
 	include mcollective
 	include percona::repository
 	include percona::packages 
+    include demo-mysql-databases 
+    include mysql::setrootpw
 	include mysql::config 
-	# We really need to set a rootpw ! 
-    	include demo-mysql-databases 
 }
 

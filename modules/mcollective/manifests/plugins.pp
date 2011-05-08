@@ -18,4 +18,5 @@ class mcollective::plugins {
   file { "${p_base}/agent/nrpe.rb": source => "${s_base}/agent/nrpe/nrpe.rb" }
   file { "${p_base}/agent/puppetd.rb": source => "${s_base}/agent/puppetd/puppetd.rb" }
   file { "${p_base}/agent/filemgr.rb": source => "${s_base}/agent/filemgr/filemgr.rb" }
+  file { "${p_base}/facts/mysql.rb": source => "${s_base}/facts/facter/mysql.rb" }
 }
