@@ -64,11 +64,13 @@ class defaults {
 
     file { "/home/vagrant/.my.cnf":
 	
-      target => "/root/.my.cnf",
-      ensure => link, 
-      owner => root,
-      group => root,
-      mode => 600;
+      #target => "/root/.my.cnf",
+      #ensure => link, 
+      ensure => present, 
+      owner => vagrant,
+      group => vagrant,
+      mode => 600,
+      require => Exec["Initialize MySQL server root password"];
     }
 
 }
@@ -132,7 +134,7 @@ node percona {
     $mysql_root_password = 'SARDINES'
     $mysql_serverid = 2
 	$replicate_ignore_db= "mysql"
-    	include defaults
+    include defaults
 	include mcollective
 	include percona::repository
 	include percona::packages 
@@ -140,6 +142,6 @@ node percona {
     include mysql::setrootpw
 	include mysql::config 
 	# We really need to set a rootpw ! 
-    	include demo-mysql-databases 
+    include demo-mysql-databases 
 }
 
