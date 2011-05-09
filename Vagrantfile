@@ -5,7 +5,7 @@ Vagrant::Config.run do |config|
 
   config.vm.define :mc_master do |mc_master_config|
        mc_master_config.ssh.max_tries = 100
-       mc_master_config.vm.box = "centos56"
+       mc_master_config.vm.box = "MyCentOS2"
        mc_master_config.vm.network("192.168.99.2")	
        mc_master_config.vm.host_name = "mc_master"
      #  mc_master_config.vm.forward_port "stomp" ,6163, 6163
@@ -19,7 +19,7 @@ Vagrant::Config.run do |config|
 
   end
   config.vm.define :percona do |percona_config|
-       percona_config.vm.box = "centos56"
+       percona_config.vm.box = "MyCentOS2"
        percona_config.ssh.max_tries = 100
        percona_config.vm.network("192.168.99.3")
        percona_config.vm.host_name = "percona"
@@ -38,7 +38,7 @@ Vagrant::Config.run do |config|
 
   end
   config.vm.define :mariadb do |mariadb_config|
-       mariadb_config.vm.box = "centos56"
+       mariadb_config.vm.box = "MyCentOS2"
        mariadb_config.ssh.max_tries = 100
        mariadb_config.vm.network("192.168.99.4")
        mariadb_config.vm.host_name = "mariadb"
@@ -56,7 +56,7 @@ Vagrant::Config.run do |config|
 
   end
   # Every Vagrant virtual environment requires a box to build off of.
-  #config.vm.box = "centos56"
+  #config.vm.box = "MyCentOS2"
 #   config.vm.box = "lucid32"
 #  config.vm.box = "debian_squeeze_32"
   # The url from where the 'config.vm.box' box will be fetched if it
