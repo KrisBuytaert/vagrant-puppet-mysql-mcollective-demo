@@ -56,7 +56,8 @@ class demo-mysql-databases {
 class defaults {
 
 	service { "iptables":
-		ensure => stopped;
+		ensure => "stopped",
+		enable => "false";
 		}
 
     	include repo
