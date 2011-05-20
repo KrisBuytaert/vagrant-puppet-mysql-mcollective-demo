@@ -8,7 +8,7 @@ class mcollective::plugins {
 
   File {
     owner => root, group => root, mode  => 0444,
-    require => Class["mcollective::install"],
+    require => [ Class["mcollective::install"], Class["mcollective::client::install"] ],
     notify => Service["mcollective"],
   }
 
