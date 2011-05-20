@@ -115,6 +115,7 @@ node mariadb {
     $replicate_ignore_db= "mysql"
     include defaults
 	include mcollective
+    include mcollective::client
    	include defaults
    	include my_passwd
 
@@ -135,6 +136,7 @@ node percona {
     include defaults
    	include my_passwd
 	include mcollective
+    include mcollective::client
 	include percona::repository
 	include percona::packages 
     include demo-mysql-databases 
