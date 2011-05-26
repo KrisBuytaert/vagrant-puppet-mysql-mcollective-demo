@@ -4,7 +4,7 @@ class repo {
 
     yumrepo {
         
-        "epel":
+     "epel":
             descr 	=> "Epel-5",
             baseurl 	=> "http://mirror.eurid.eu/epel/5/$hardwaremodel/",
             enabled 	=> 1,
@@ -59,8 +59,10 @@ class defaults {
 		ensure => stopped;
 		}
 
-    	include repo
-	
+   	include repo
+}
+
+class my_passwd {
 
     file { "/home/vagrant/.my.cnf":
 	
@@ -86,6 +88,7 @@ node mysql {
 
 
     include defaults
+    include my_passwd
     include mysql::server
     include mysql::setrootpw
     include demo-mysql-databases 
@@ -97,16 +100,10 @@ node mysql {
 
 node mc_master {
 
-	
-	
-
-
-    	include defaults
+    include defaults
  	include activemq
 	include mcollective 
     include mcollective::client
-
-
 
 }
 
@@ -118,14 +115,16 @@ node mariadb {
     $replicate_ignore_db= "mysql"
     include defaults
 	include mcollective
-    	include defaults
+    include mcollective::client
+   	include defaults
+   	include my_passwd
 
 	include maria::repository
 	include mysql::config 
 	include mysql::setrootpw
 	# We really need to set a rootpw ! 
 	include maria::packages
-    	include demo-mysql-databases 
+    include demo-mysql-databases 
 }
 
 
@@ -135,7 +134,9 @@ node percona {
     $mysql_serverid = 2
 	$replicate_ignore_db= "mysql"
     include defaults
+   	include my_passwd
 	include mcollective
+    include mcollective::client
 	include percona::repository
 	include percona::packages 
     include demo-mysql-databases 
