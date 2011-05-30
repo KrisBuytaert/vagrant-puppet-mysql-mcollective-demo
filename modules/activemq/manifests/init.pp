@@ -8,12 +8,13 @@ class activemq {
 	
                 "activemq":
                         ensure => "installed",
-                        require => Yumrepo["jpackage"];
+                        require => [ Yumrepo["jpackage"],Yumrepo["puppetlabs"] ];
         }
 
    file {
 	"/etc/activemq/activemq.xml":
-  		source => "puppet:///modules/activemq/activemq.xml";
+  		source => "puppet:///modules/activemq/activemq.xml",
+        require => Package["activemq"];
 
    }
 
