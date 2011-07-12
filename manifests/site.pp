@@ -1,12 +1,12 @@
 class repo {
     $releasever = "5"
-
+    $basearch = "i386"
 
     yumrepo {
         
         "epel":
             descr 	=> "Epel-5",
-            baseurl 	=> "http://mirror.eurid.eu/epel/5/$hardwaremodel/",
+            baseurl 	=> "http://mirror.eurid.eu/epel/5/$basearch/",
             enabled 	=> 1,
             gpgcheck 	=> 0;
 	"puppetlabs":
@@ -70,8 +70,7 @@ class defaults {
       ensure => present, 
       owner => vagrant,
       group => vagrant,
-      mode => 600,
-      require => Exec["Initialize MySQL server root password"];
+      mode => 600;
     }
 
 }
@@ -105,7 +104,7 @@ node mc_master {
     	include defaults
  	include activemq
 	include mcollective 
-    include mcollective::client
+    	include mcollective::client
 
 
 
@@ -121,11 +120,11 @@ node mariadb {
 	include mcollective
     	include defaults
 
-	include maria::repository
+	include maria::yumrepository
 	include mysql::config 
 	include mysql::setrootpw
 	# We really need to set a rootpw ! 
-	include maria::packages
+	include maria::rpmpackages
     	include demo-mysql-databases 
 }
 
